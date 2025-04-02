@@ -12,8 +12,6 @@ import 'package:medicine_reminder_app/pages/NewEntryPage/widgets/medicine_type_c
 import 'package:medicine_reminder_app/routes/routes_name.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../models/medicine_info_model.dart';
-
 class NewEntryPage extends StatefulWidget {
   const NewEntryPage({super.key});
 
@@ -307,8 +305,7 @@ class _NewEntryPageState extends State<NewEntryPage> {
                                     selectedInterval = newVal!;
                                     showIntervalValidation = false;
                                     _newEntryPageBloc.add(
-                                        IntervalChanged(selectedInterval!)
-                                    );
+                                        IntervalChanged(selectedInterval!));
                                   });
                                 },
                               ),
@@ -421,15 +418,15 @@ class _NewEntryPageState extends State<NewEntryPage> {
                                         !showStartTimeValidation) {
                                       _newEntryPageBloc.add(
                                         AddEntryConfirmBtnClickEvent(
-                                          // medicineInfo: MedicineInfoModel(
-                                          //     medicine_name:
-                                          //         medicineNameController.text,
-                                          //     dosage: dosageController.text,
-                                          //     medicineType:
-                                          //         selectedMedicineType!,
-                                          //     interval: selectedInterval!,
-                                          //     startTime: selectedStartTime!),
-                                        ),
+                                            // medicineInfo: MedicineInfoModel(
+                                            //     medicine_name:
+                                            //         medicineNameController.text,
+                                            //     dosage: dosageController.text,
+                                            //     medicineType:
+                                            //         selectedMedicineType!,
+                                            //     interval: selectedInterval!,
+                                            //     startTime: selectedStartTime!),
+                                            ),
                                       );
                                     }
                                   },
