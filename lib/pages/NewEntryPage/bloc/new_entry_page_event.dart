@@ -15,10 +15,10 @@ class DosageChanged extends NewEntryPageEvent {
   DosageChanged(this.dosage);
 }
 
-class MedicineTypeChanged extends NewEntryPageEvent {
+class MedicineTypeSelection extends NewEntryPageEvent {
   final MedicineTypeDataModel medicineType;
 
-  MedicineTypeChanged(this.medicineType);
+  MedicineTypeSelection(this.medicineType);
 }
 
 class IntervalChanged extends NewEntryPageEvent {
@@ -28,13 +28,15 @@ class IntervalChanged extends NewEntryPageEvent {
 }
 
 class StartingTimeChanged extends NewEntryPageEvent {
-  final String startingTime;
+  final TimeOfDay startingTime;
 
   StartingTimeChanged(this.startingTime);
 }
 
 class AddEntryConfirmBtnClickEvent extends NewEntryPageEvent {
-  final MedicineInfoModel medicineInfo;
+  // final MedicineInfoModel medicineInfo;
 
-  AddEntryConfirmBtnClickEvent({required this.medicineInfo});
+  AddEntryConfirmBtnClickEvent(
+      // {required this.medicineInfo}
+      );
 }

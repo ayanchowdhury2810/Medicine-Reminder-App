@@ -8,14 +8,17 @@ class AddTextData extends StatefulWidget {
   final FocusNode focusNode;
   final TextEditingController textEditingController;
   final String? Function(String?)? validator;
+  final ValueChanged<String> onChanged;
 
-  const AddTextData(
-      {super.key,
-      required this.fieldTitle,
-      required this.hintText,
-      required this.focusNode,
-      required this.textEditingController,
-      this.validator});
+  const AddTextData({
+    super.key,
+    required this.fieldTitle,
+    required this.hintText,
+    required this.focusNode,
+    required this.textEditingController,
+    this.validator,
+    required this.onChanged,
+  });
 
   @override
   State<AddTextData> createState() => _AddTextDataState();
@@ -40,7 +43,7 @@ class _AddTextDataState extends State<AddTextData> {
           focusNode: widget.focusNode,
           hintText: widget.hintText,
           textEditingController: widget.textEditingController,
-          onChanged: (value) {},
+          onChanged: widget.onChanged,
           validator: widget.validator,
         )
         // TextField(

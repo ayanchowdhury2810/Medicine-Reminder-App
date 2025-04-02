@@ -110,6 +110,9 @@ class _NewEntryPageState extends State<NewEntryPage> {
                               }
                               return null;
                             },
+                            onChanged: (value) {
+                              _newEntryPageBloc.add(MedicineNameChanged(value));
+                            },
                           ),
                           SizedBox(
                             height: 20.px,
@@ -124,6 +127,9 @@ class _NewEntryPageState extends State<NewEntryPage> {
                                 return "Please enter dosage";
                               }
                               return null;
+                            },
+                            onChanged: (value) {
+                              _newEntryPageBloc.add(DosageChanged(value));
                             },
                           ),
                           SizedBox(
@@ -195,44 +201,62 @@ class _NewEntryPageState extends State<NewEntryPage> {
                           //   ),
                           // ),
                           SizedBox(
-                              height: 200.0,
+                            height: 200.0,
                             child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: MedicineType.medicineTypesData.length,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  color: Colors.red,
-                                  height: 20,
-                                  child:
-                                  MedicineTypeCard(
-                                    isItemSelected:
-                                    selectedMedicineTypeIndex == index,
-                                    imagePath: MedicineType
-                                        .medicineTypesData[index].imagePath,
-                                    desc: MedicineType
-                                        .medicineTypesData[index].desc,
-                                    onClick: () {
-                                      setState(() {
-                                        selectedMedicineType =
-                                            MedicineTypeDataModel(
-                                                imagePath: MedicineType
-                                                    .medicineTypesData[index]
-                                                    .imagePath,
-                                                desc: MedicineType
-                                                    .medicineTypesData[index]
-                                                    .desc,
-                                                isSelected: MedicineType
-                                                    .medicineTypesData[index]
-                                                    .isSelected);
+                                scrollDirection: Axis.horizontal,
+                                itemCount:
+                                    MedicineType.medicineTypesData.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                      color: Colors.red,
+                                      height: 20,
+                                      child: MedicineTypeCard(
+                                        isItemSelected:
+                                            selectedMedicineTypeIndex == index,
+                                        imagePath: MedicineType
+                                            .medicineTypesData[index].imagePath,
+                                        desc: MedicineType
+                                            .medicineTypesData[index].desc,
+                                        onClick: () {
+                                          _newEntryPageBloc.add(
+                                              MedicineTypeSelection(
+                                                  MedicineTypeDataModel(
+                                                      imagePath: MedicineType
+                                                          .medicineTypesData[
+                                                              index]
+                                                          .imagePath,
+                                                      desc: MedicineType
+                                                          .medicineTypesData[
+                                                              index]
+                                                          .desc,
+                                                      isSelected: MedicineType
+                                                          .medicineTypesData[
+                                                              index]
+                                                          .isSelected)));
 
-                                        selectedMedicineTypeIndex = index;
-                                        print(
-                                            "selectedMedicineType: => ${selectedMedicineType?.desc} ${selectedMedicineType?.imagePath} ${selectedMedicineTypeIndex == index}");
-                                      });
-                                    },
-                                  )
-                                );
-                              }),
+                                          setState(() {
+                                            selectedMedicineType =
+                                                MedicineTypeDataModel(
+                                                    imagePath: MedicineType
+                                                        .medicineTypesData[
+                                                            index]
+                                                        .imagePath,
+                                                    desc: MedicineType
+                                                        .medicineTypesData[
+                                                            index]
+                                                        .desc,
+                                                    isSelected: MedicineType
+                                                        .medicineTypesData[
+                                                            index]
+                                                        .isSelected);
+
+                                            selectedMedicineTypeIndex = index;
+                                            print(
+                                                "selectedMedicineType: => ${selectedMedicineType?.desc} ${selectedMedicineType?.imagePath} ${selectedMedicineTypeIndex == index}");
+                                          });
+                                        },
+                                      ));
+                                }),
                           ),
                           Visibility(
                               visible: showMedicineTypeValidation,
@@ -282,6 +306,9 @@ class _NewEntryPageState extends State<NewEntryPage> {
                                     dropDownValue = newVal!;
                                     selectedInterval = newVal!;
                                     showIntervalValidation = false;
+                                    _newEntryPageBloc.add(
+                                        IntervalChanged(selectedInterval!)
+                                    );
                                   });
                                 },
                               ),
@@ -337,6 +364,9 @@ class _NewEntryPageState extends State<NewEntryPage> {
                                         initialEntryMode:
                                             TimePickerEntryMode.dial);
                                 if (timeOfDay != null) {
+                                  _newEntryPageBloc.add(
+                                    StartingTimeChanged(timeOfDay),
+                                  );
                                   setState(() {
                                     selectedStartTime = timeOfDay;
                                     showStartTimeValidation = false;
@@ -391,13 +421,14 @@ class _NewEntryPageState extends State<NewEntryPage> {
                                         !showStartTimeValidation) {
                                       _newEntryPageBloc.add(
                                         AddEntryConfirmBtnClickEvent(
-                                          medicineInfo: MedicineInfoModel(
-                                              medicine_name:
-                                                  medicineNameController.text,
-                                              dosage: dosageController.text,
-                                              medicineType: selectedMedicineType!,
-                                              interval: selectedInterval!,
-                                              startTime: selectedStartTime!),
+                                          // medicineInfo: MedicineInfoModel(
+                                          //     medicine_name:
+                                          //         medicineNameController.text,
+                                          //     dosage: dosageController.text,
+                                          //     medicineType:
+                                          //         selectedMedicineType!,
+                                          //     interval: selectedInterval!,
+                                          //     startTime: selectedStartTime!),
                                         ),
                                       );
                                     }
