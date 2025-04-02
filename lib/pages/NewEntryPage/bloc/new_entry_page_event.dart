@@ -36,7 +36,6 @@ class StartingTimeChanged extends NewEntryPageEvent {
 class AddEntryConfirmBtnClickEvent extends NewEntryPageEvent {
   // final MedicineInfoModel medicineInfo;
 
-  AddEntryConfirmBtnClickEvent(
-      // {required this.medicineInfo}
+  AddEntryConfirmBtnClickEvent(// {required this.medicineInfo}
       );
 }
