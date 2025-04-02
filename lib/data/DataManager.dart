@@ -9,7 +9,8 @@ class DataManager {
   Future<void> saveLReminderList(List<MedicineInfoModel> medicineInfo) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     // final List<String> info = prefs.getStringList(_key) ?? [];
-    final List<String> info = medicineInfo.map((medicine) => jsonEncode(medicine.toJson())).toList();
+    final List<String> info =
+        medicineInfo.map((medicine) => jsonEncode(medicine.toJson())).toList();
     print("infoooo 11111=> $info");
     // info.add(jsonEncode(medicineInfo.toJson()));
     // print("infoooo 22222=> $info");
@@ -33,20 +34,22 @@ class DataManager {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final List<String> info = prefs.getStringList(_key) ?? [];
     print("infoooo  get=> $info");
-    return info.map((infoJson) =>
-      // final infoData = jsonDecode(infoJson);
-      // return MedicineInfoModel(
-      //     medicine_name: infoData['medicine_name'],
-      //     dosage: infoData['dosage'],
-      //     medicineType: infoData['medicineType'],
-      //     interval: infoData['interval'],
-      //     startTime: infoData['startTime']);
-      MedicineInfoModel.fromJson(jsonDecode(infoJson))
-    // }
-    ).toList();
+    return info
+        .map((infoJson) =>
+                // final infoData = jsonDecode(infoJson);
+                // return MedicineInfoModel(
+                //     medicine_name: infoData['medicine_name'],
+                //     dosage: infoData['dosage'],
+                //     medicineType: infoData['medicineType'],
+                //     interval: infoData['interval'],
+                //     startTime: infoData['startTime']);
+                MedicineInfoModel.fromJson(jsonDecode(infoJson))
+            // }
+            )
+        .toList();
   }
 
-  Future<void> addReminder(MedicineInfoModel medicine) async{
+  Future<void> addReminder(MedicineInfoModel medicine) async {
     List<MedicineInfoModel> currentList = await getReminderList();
     currentList.add(medicine);
     await saveLReminderList(currentList);
