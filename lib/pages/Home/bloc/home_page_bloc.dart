@@ -11,7 +11,6 @@ import '../../../data/DataManager.dart';
 class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
   HomePageBloc() : super(HomePageInitialState()) {
     on<HomePageInitialEvent>(_updateHomePageEvent);
-    on<RemoveMedicineReminderEvent>(_removeMedicineReminderEvent);
   }
 
   final DataManager dataManager = DataManager();
@@ -27,12 +26,6 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
     medicineRecords.clear();
     medicineRecords.addAll(data);
     // medicineRecords.add(data as MedicineInfoModel);
-    emit(HomePageSuccessState(medicineInfoList: medicineRecords));
-  }
-
-  FutureOr<void> _removeMedicineReminderEvent(
-      RemoveMedicineReminderEvent event, Emitter<HomePageState> emit) {
-    medicineRecords.remove(event.medicineInfoModel);
     emit(HomePageSuccessState(medicineInfoList: medicineRecords));
   }
 

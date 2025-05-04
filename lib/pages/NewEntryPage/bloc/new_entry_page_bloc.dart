@@ -62,8 +62,6 @@ class NewEntryPageBloc extends Bloc<NewEntryPageEvent, NewEntryPageState> {
 
   FutureOr<void> _onAddEntryConfirmClickBtnClickEvent(
       AddEntryConfirmBtnClickEvent event, Emitter<NewEntryPageState> emit) {
-    // medicineRecords.add(event.medicineInfo);
-    // _addData(event.medicineInfo);
     medicineRecords.add(
         MedicineInfoModel(
             medicine_name: state.medicineName,

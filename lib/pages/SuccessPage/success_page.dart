@@ -27,7 +27,6 @@ class _SuccessPageState extends State<SuccessPage> {
     print("size ---> ${medicineRecords.length}");
     print("data ---> ${medicineRecords[0].medicine_name}");
 
-    // homePageBloc.add(HomePageInitialEvent());
   }
 
   @override

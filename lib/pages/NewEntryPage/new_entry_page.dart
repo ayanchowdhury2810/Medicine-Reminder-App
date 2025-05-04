@@ -417,16 +417,7 @@ class _NewEntryPageState extends State<NewEntryPage> {
                                         !showIntervalValidation &&
                                         !showStartTimeValidation) {
                                       _newEntryPageBloc.add(
-                                        AddEntryConfirmBtnClickEvent(
-                                            // medicineInfo: MedicineInfoModel(
-                                            //     medicine_name:
-                                            //         medicineNameController.text,
-                                            //     dosage: dosageController.text,
-                                            //     medicineType:
-                                            //         selectedMedicineType!,
-                                            //     interval: selectedInterval!,
-                                            //     startTime: selectedStartTime!),
-                                            ),
+                                        AddEntryConfirmBtnClickEvent(),
                                       );
                                     }
                                   },

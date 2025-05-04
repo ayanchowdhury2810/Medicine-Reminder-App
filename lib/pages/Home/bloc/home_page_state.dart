@@ -5,7 +5,7 @@ import '../../../models/medicine_info_model.dart';
 @immutable
 abstract class HomePageState {}
 
-abstract class HomePageActionState extends HomePageState{}
+abstract class HomePageActionState extends HomePageState {}
 
 final class HomePageInitialState extends HomePageState {}
 

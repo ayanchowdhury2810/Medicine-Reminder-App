@@ -6,9 +6,3 @@ import '../../../models/medicine_info_model.dart';
 abstract class HomePageEvent {}
 
 class HomePageInitialEvent extends HomePageEvent {}
-
-class RemoveMedicineReminderEvent extends HomePageEvent {
-  final MedicineInfoModel medicineInfoModel;
-
-  RemoveMedicineReminderEvent({required this.medicineInfoModel});
-}

@@ -11,23 +11,19 @@ class DataManager {
     // final List<String> info = prefs.getStringList(_key) ?? [];
     final List<String> info =
         medicineInfo.map((medicine) => jsonEncode(medicine.toJson())).toList();
-    print("infoooo 11111=> $info");
-    // info.add(jsonEncode(medicineInfo.toJson()));
-    // print("infoooo 22222=> $info");
     await prefs.setStringList(_key, info);
   }
 
   Future<void> removeReminder(MedicineInfoModel medicineInfo) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final List<String> info = prefs.getStringList(_key) ?? [];
-    info.removeWhere((it) {
-      final data = json.decode(it);
-      return data['medicine_name'] == medicineInfo.medicine_name &&
-          data['dosage'] == medicineInfo.dosage &&
-          data['medicineType'] == medicineInfo.medicineType &&
-          data['interval'] == medicineInfo.interval &&
-          data['startTime'] == medicineInfo.startTime;
-    });
+    List<MedicineInfoModel> currentList = await getReminderList();
+    currentList.removeWhere((item) =>
+        item.medicine_name == medicineInfo.medicine_name &&
+        item.dosage == medicineInfo.dosage &&
+        item.medicineType.desc == medicineInfo.medicineType.desc &&
+        item.interval == medicineInfo.interval &&
+        item.startTime.hour == medicineInfo.startTime.hour &&
+        item.startTime.minute == medicineInfo.startTime.minute);
+    await saveLReminderList(currentList);
   }
 
   Future<List<MedicineInfoModel>> getReminderList() async {
@@ -35,17 +31,7 @@ class DataManager {
     final List<String> info = prefs.getStringList(_key) ?? [];
     print("infoooo  get=> $info");
     return info
-        .map((infoJson) =>
-                // final infoData = jsonDecode(infoJson);
-                // return MedicineInfoModel(
-                //     medicine_name: infoData['medicine_name'],
-                //     dosage: infoData['dosage'],
-                //     medicineType: infoData['medicineType'],
-                //     interval: infoData['interval'],
-                //     startTime: infoData['startTime']);
-                MedicineInfoModel.fromJson(jsonDecode(infoJson))
-            // }
-            )
+        .map((infoJson) => MedicineInfoModel.fromJson(jsonDecode(infoJson)))
         .toList();
   }
 

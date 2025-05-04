@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  Future<List<MedicineInfoModel>> _getDataa() async{
+  Future<List<MedicineInfoModel>> _getDataa() async {
     final data = await dataManager.getReminderList();
     return data;
   }
@@ -46,7 +46,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // appBar: AppBar(),
         body: BlocConsumer<HomePageBloc, HomePageState>(
           bloc: homePageBloc,
           listener: (context, state) {},
@@ -63,16 +62,19 @@ class _HomePageState extends State<HomePage> {
                       : Flexible(
                           child: GridView.builder(
                             itemCount: state.medicineInfoList.length,
+                            padding: EdgeInsets.only(
+                                left: 2.h, right: 2.h, top: 2.h, bottom: 2.h),
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
                                     mainAxisSpacing: 20,
-                                    crossAxisSpacing: 20,
+                                    crossAxisSpacing: 2.gitin0,
                                     childAspectRatio: 0.9),
                             itemBuilder: (context, index) {
                               return MedicineInfoGrid(
                                   medicineInfoModel:
-                                      state.medicineInfoList[index]);
+                                      state.medicineInfoList[index],
+                                  homePageBloc: homePageBloc);
                             },
                           ),
                         )
@@ -82,16 +84,12 @@ class _HomePageState extends State<HomePage> {
             return Container();
           },
         ),
-
-        // ),
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
             final result =
                 await Navigator.pushNamed(context, RoutesName.newEntryScreen);
             print("result --------> $result");
-            // if(result!=null){
             homePageBloc.add(HomePageInitialEvent());
-            // }
           },
           backgroundColor: Colors.white,
           child: const Icon(
@@ -174,8 +172,10 @@ class BottomContainer extends StatelessWidget {
 
 class MedicineInfoGrid extends StatefulWidget {
   final MedicineInfoModel medicineInfoModel;
+  final HomePageBloc homePageBloc;
 
-  const MedicineInfoGrid({super.key, required this.medicineInfoModel});
+  const MedicineInfoGrid(
+      {super.key, required this.medicineInfoModel, required this.homePageBloc});
 
   @override
   State<MedicineInfoGrid> createState() => _MedicineInfoGridState();
@@ -184,52 +184,64 @@ class MedicineInfoGrid extends StatefulWidget {
 class _MedicineInfoGridState extends State<MedicineInfoGrid> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(border: Border.all(color: kPrimaryColor), borderRadius: BorderRadius.circular(10)),
-        // color: Colors.red,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-                height: 100,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                  fit: BoxFit.contain,
-                  image: AssetImage(
-                    widget.medicineInfoModel.medicineType.imagePath,
-                  ),
-                ))
-                // child:
-                ),
-            TextWidget(
-                data: "Name : ${widget.medicineInfoModel.medicine_name}",
-                textAlign: TextAlign.start,
-                color: Colors.black,
-                fontSize: 15,
-                fontWeight: FontWeight.normal),
-            TextWidget(
-                data: "Dosage : ${widget.medicineInfoModel.dosage}",
-                textAlign: TextAlign.start,
-                color: Colors.black,
-                fontSize: 15,
-                fontWeight: FontWeight.normal),
-            TextWidget(
-                data:
-                    "Medicine Type : ${widget.medicineInfoModel.medicineType.desc}",
-                textAlign: TextAlign.start,
-                color: Colors.black,
-                fontSize: 15,
-                fontWeight: FontWeight.normal),
-            TextWidget(
-                data:
-                    "Start Time : ${widget.medicineInfoModel.startTime.hour}:${widget.medicineInfoModel.startTime.minute}",
-                textAlign: TextAlign.start,
-                color: Colors.black,
-                fontSize: 15,
-                fontWeight: FontWeight.normal)
-          ],
-        ));
+    return GestureDetector(
+      onTap: () async {
+        final result = await Navigator.pushNamed(
+            context, RoutesName.medicineDetailScreen,
+            arguments: widget.medicineInfoModel);
+
+        print("result --------> $result");
+        widget.homePageBloc.add(HomePageInitialEvent());
+      },
+      child: Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: kPrimaryColor),
+              borderRadius: BorderRadius.circular(10)),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 5, right: 5),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                    height: 100,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                      fit: BoxFit.contain,
+                      image: AssetImage(
+                        widget.medicineInfoModel.medicineType.imagePath,
+                      ),
+                    ))),
+                TextWidget(
+                    data: "Name : ${widget.medicineInfoModel.medicine_name}",
+                    textAlign: TextAlign.start,
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal),
+                TextWidget(
+                    data: "Dosage : ${widget.medicineInfoModel.dosage}",
+                    textAlign: TextAlign.start,
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal),
+                TextWidget(
+                    data:
+                        "Medicine Type : ${widget.medicineInfoModel.medicineType.desc}",
+                    textAlign: TextAlign.start,
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal),
+                TextWidget(
+                    data:
+                        "Start Time : ${widget.medicineInfoModel.startTime.hour}:${widget.medicineInfoModel.startTime.minute}",
+                    textAlign: TextAlign.start,
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.normal)
+              ],
+            ),
+          )),
+    );
   }
 }
