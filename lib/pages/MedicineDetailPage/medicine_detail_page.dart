@@ -6,6 +6,7 @@ import 'package:medicine_reminder_app/models/medicine_info_model.dart';
 import 'package:medicine_reminder_app/pages/MedicineDetailPage/bloc/medicine_detail_bloc.dart';
 import 'package:medicine_reminder_app/pages/MedicineDetailPage/bloc/medicine_detail_event.dart';
 import 'package:medicine_reminder_app/pages/MedicineDetailPage/bloc/medicine_detail_state.dart';
+import 'package:medicine_reminder_app/routes/routes_name.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../components/button_widget.dart';
@@ -145,7 +146,9 @@ class _MedicineDetailPageState extends State<MedicineDetailPage> {
                           btnText: "Edit Reminder",
                           txtColor: Colors.white,
                           fontSize: 20,
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, RoutesName.editScreen, arguments: state.medicineInfoModel);
+                          },
                         ),
                       ),
                     ),

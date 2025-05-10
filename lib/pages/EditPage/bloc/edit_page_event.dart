@@ -1,40 +1,42 @@
 
-part of 'new_entry_page_bloc.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:medicine_reminder_app/models/medicine_type_data_model.dart';
 
 @immutable
-sealed class NewEntryPageEvent {}
+abstract class EditPageEvent {}
 
-class MedicineNameChanged extends NewEntryPageEvent {
+class MedicineNameChanged extends EditPageEvent {
   final String medicineName;
 
   MedicineNameChanged(this.medicineName);
 }
 
-class DosageChanged extends NewEntryPageEvent {
+class DosageChanged extends EditPageEvent {
   final String dosage;
 
   DosageChanged(this.dosage);
 }
 
-class MedicineTypeSelection extends NewEntryPageEvent {
+class MedicineTypeSelection extends EditPageEvent {
   final MedicineTypeDataModel medicineType;
 
   MedicineTypeSelection(this.medicineType);
 }
 
-class IntervalChanged extends NewEntryPageEvent {
+class IntervalChanged extends EditPageEvent {
   final String interval;
 
   IntervalChanged(this.interval);
 }
 
-class StartingTimeChanged extends NewEntryPageEvent {
+class StartingTimeChanged extends EditPageEvent {
   final TimeOfDay startingTime;
 
   StartingTimeChanged(this.startingTime);
 }
 
-class AddEntryConfirmBtnClickEvent extends NewEntryPageEvent {
+class AddEntryConfirmBtnClickEvent extends EditPageEvent {
   // final MedicineInfoModel medicineInfo;
 
   AddEntryConfirmBtnClickEvent(// {required this.medicineInfo}

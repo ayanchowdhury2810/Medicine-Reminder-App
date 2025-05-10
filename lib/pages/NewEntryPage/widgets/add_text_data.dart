@@ -46,15 +46,6 @@ class _AddTextDataState extends State<AddTextData> {
           onChanged: widget.onChanged,
           validator: widget.validator,
         )
-        // TextField(
-        //   keyboardType: TextInputType.text,
-        //   focusNode: widget.focusNode,
-        //   decoration: InputDecoration(
-        //     hintText: widget.hintText,
-        //   ),
-        //   onChanged: (value) {},
-        //   controller: widget.textEditingController,
-        // ),
       ],
     );
   }

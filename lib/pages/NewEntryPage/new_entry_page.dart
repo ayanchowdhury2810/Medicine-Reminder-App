@@ -27,8 +27,6 @@ class _NewEntryPageState extends State<NewEntryPage> {
   final TextEditingController dosageController = TextEditingController();
   String? dropDownValue;
   final DataManager dataManager = DataManager();
-
-  // String? dropDownHintText;
   MedicineTypeDataModel? selectedMedicineType;
   int selectedMedicineTypeIndex = -1;
   bool showMedicineTypeValidation = false;

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder_app/models/medicine_info_model.dart';
+import 'package:medicine_reminder_app/pages/EditPage/edit_page.dart';
 import 'package:medicine_reminder_app/pages/Home/home_page.dart';
 import 'package:medicine_reminder_app/pages/MedicineDetailPage/medicine_detail_page.dart';
 import 'package:medicine_reminder_app/pages/NewEntryPage/new_entry_page.dart';
@@ -20,6 +21,9 @@ class Routes {
         final args = settings.arguments as MedicineInfoModel;
         return MaterialPageRoute(
             builder: (context) => MedicineDetailPage(medicineInfoModel: args));
+      case RoutesName.editScreen:
+        final args = settings.arguments as MedicineInfoModel;
+        return MaterialPageRoute(builder: (context) => EditPage(medicineInfoModel: args));
       default:
         return MaterialPageRoute(builder: (context) {
           return const Scaffold(

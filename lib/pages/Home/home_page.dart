@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
                                     mainAxisSpacing: 20,
-                                    crossAxisSpacing: 2.gitin0,
+                                    crossAxisSpacing: 20,
                                     childAspectRatio: 0.9),
                             itemBuilder: (context, index) {
                               return MedicineInfoGrid(
