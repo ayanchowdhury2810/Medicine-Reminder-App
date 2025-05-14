@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medicine_reminder_app/models/medicine_type_data_model.dart';
@@ -36,9 +35,8 @@ class StartingTimeChanged extends EditPageEvent {
   StartingTimeChanged(this.startingTime);
 }
 
-class AddEntryConfirmBtnClickEvent extends EditPageEvent {
-  // final MedicineInfoModel medicineInfo;
+class EditEntryConfirmBtnClickEvent extends EditPageEvent {
+  final int id;
 
-  AddEntryConfirmBtnClickEvent(// {required this.medicineInfo}
-      );
+  EditEntryConfirmBtnClickEvent({required this.id});
 }

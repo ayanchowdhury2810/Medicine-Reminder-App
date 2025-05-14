@@ -26,6 +26,28 @@ class DataManager {
     await saveLReminderList(currentList);
   }
 
+  Future<void> editReminderList(MedicineInfoModel medicineInfo) async {
+    List<MedicineInfoModel> currentList = await getReminderList();
+    print("resss33333333-> ${medicineInfo.medicine_name}");
+    int index = currentList
+        .indexWhere((medicine) => medicine.id == medicineInfo.id);
+
+    print("resss444444-> ${index}");
+
+    if (index != -1) {
+      currentList[index] = MedicineInfoModel(
+          id: medicineInfo.id,
+          medicine_name: medicineInfo.medicine_name,
+          dosage: medicineInfo.dosage,
+          medicineType: medicineInfo.medicineType,
+          interval: medicineInfo.interval,
+          startTime: medicineInfo.startTime);
+    }
+    print("resss11111-> ${currentList[index].medicine_name}");
+
+    await saveLReminderList(currentList);
+  }
+
   Future<List<MedicineInfoModel>> getReminderList() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final List<String> info = prefs.getStringList(_key) ?? [];

@@ -316,12 +316,12 @@ class _NewEntryPageState extends State<NewEntryPage> {
                           ),
                           Visibility(
                             visible: showIntervalValidation,
-                            child: Column(
+                            child: const Column(
                               children: [
                                 // SizedBox(
                                 //   height: 5.px,
                                 // ),
-                                const TextWidget(
+                                  TextWidget(
                                     data: "Please enter Interval",
                                     color: Colors.red,
                                     fontSize: 10,

@@ -15,15 +15,15 @@ part 'new_entry_page_state.dart';
 class NewEntryPageBloc extends Bloc<NewEntryPageEvent, NewEntryPageState> {
   NewEntryPageBloc()
       : super(NewEntryPageState(
-      medicineName: '',
-      dosage: '',
-      medicineType: MedicineTypeDataModel(
-        imagePath: '',
-        desc: '',
-        isSelected: false,
-      ),
-      interval: '',
-      startingTime: TimeOfDay.now())) {
+            medicineName: '',
+            dosage: '',
+            medicineType: MedicineTypeDataModel(
+              imagePath: '',
+              desc: '',
+              isSelected: false,
+            ),
+            interval: '',
+            startingTime: TimeOfDay.now())) {
     on<MedicineNameChanged>(_onMedicineNameChanged);
     on<DosageChanged>(_onDosageChanged);
     on<MedicineTypeSelection>(_onMedicineTypeSelection);
@@ -34,44 +34,49 @@ class NewEntryPageBloc extends Bloc<NewEntryPageEvent, NewEntryPageState> {
 
   final DataManager dataManager = DataManager();
 
-  FutureOr<void> _onMedicineNameChanged(MedicineNameChanged event,
-      Emitter<NewEntryPageState> emit) {
+  FutureOr<void> _onMedicineNameChanged(
+      MedicineNameChanged event, Emitter<NewEntryPageState> emit) {
     emit(state.copyWith(medicineName: event.medicineName));
   }
 
-  FutureOr<void> _onDosageChanged(DosageChanged event,
-      Emitter<NewEntryPageState> emit) {
+  FutureOr<void> _onDosageChanged(
+      DosageChanged event, Emitter<NewEntryPageState> emit) {
     emit(state.copyWith(dosage: event.dosage));
   }
 
-  FutureOr<void> _onMedicineTypeSelection(MedicineTypeSelection event,
-      Emitter<NewEntryPageState> emit) {
+  FutureOr<void> _onMedicineTypeSelection(
+      MedicineTypeSelection event, Emitter<NewEntryPageState> emit) {
     emit(state.copyWith(medicineType: event.medicineType));
   }
 
-  FutureOr<void> _onIntervalChanged(IntervalChanged event,
-      Emitter<NewEntryPageState> emit) {
+  FutureOr<void> _onIntervalChanged(
+      IntervalChanged event, Emitter<NewEntryPageState> emit) {
     emit(state.copyWith(interval: event.interval));
   }
 
-
-  FutureOr<void> _onStartTimeChanged(StartingTimeChanged event,
-      Emitter<NewEntryPageState> emit) {
+  FutureOr<void> _onStartTimeChanged(
+      StartingTimeChanged event, Emitter<NewEntryPageState> emit) {
     emit(state.copyWith(startTime: event.startingTime));
   }
 
   FutureOr<void> _onAddEntryConfirmClickBtnClickEvent(
       AddEntryConfirmBtnClickEvent event, Emitter<NewEntryPageState> emit) {
-    medicineRecords.add(
-        MedicineInfoModel(
-            medicine_name: state.medicineName,
-            dosage: state.dosage,
-            medicineType: state.medicineType,
-            interval: state.interval,
-            startTime: state.startingTime)
-    );
+    int newId = 1;
+    if (medicineRecords.isNotEmpty) {
+      newId =
+          medicineRecords.map((e) => e.id).reduce((a, b) => a > b ? a : b) + 1;
+    }
+    medicineRecords.add(MedicineInfoModel(
+        id: newId,
+        medicine_name: state.medicineName,
+        dosage: state.dosage,
+        medicineType: state.medicineType,
+        interval: state.interval,
+        startTime: state.startingTime));
 
-    _addData(MedicineInfoModel(medicine_name: state.medicineName,
+    _addData(MedicineInfoModel(
+        id: newId,
+        medicine_name: state.medicineName,
         dosage: state.dosage,
         medicineType: state.medicineType,
         interval: state.interval,

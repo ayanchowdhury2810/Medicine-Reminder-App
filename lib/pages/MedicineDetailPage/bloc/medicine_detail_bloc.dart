@@ -26,8 +26,10 @@ class MedicineDetailBloc
   FutureOr<void> _removeMedicineReminderEvent(
       RemoveMedicineReminderEvent event, Emitter<MedicineDetailState> emit) {
     // medicineRecords.remove(event.medicineInfoModel);de
-    medicineRecords.removeWhere((item) => item.medicine_name == event.medicineInfoModel.medicine_name);
-    _removeReminder(MedicineInfoModel(medicine_name: event.medicineInfoModel.medicine_name,
+    medicineRecords.removeWhere((item) => item.id == event.medicineInfoModel.id);
+    _removeReminder(MedicineInfoModel(
+      id: event.medicineInfoModel.id,
+      medicine_name: event.medicineInfoModel.medicine_name,
         dosage: event.medicineInfoModel.dosage,
         medicineType: event.medicineInfoModel.medicineType,
         interval: event.medicineInfoModel.interval,

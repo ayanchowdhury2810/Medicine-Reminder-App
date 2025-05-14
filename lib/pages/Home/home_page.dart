@@ -38,10 +38,10 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  Future<List<MedicineInfoModel>> _getDataa() async {
-    final data = await dataManager.getReminderList();
-    return data;
-  }
+  // Future<List<MedicineInfoModel>> _getDataa() async {
+  //   final data = await dataManager.getReminderList();
+  //   return data;
+  // }
 
   @override
   Widget build(BuildContext context) {

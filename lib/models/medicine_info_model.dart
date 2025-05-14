@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'medicine_type_data_model.dart';
 
 class MedicineInfoModel {
+  final int id;
   final String medicine_name;
   final String dosage;
   final MedicineTypeDataModel medicineType;
@@ -10,6 +11,7 @@ class MedicineInfoModel {
   final TimeOfDay startTime;
 
   MedicineInfoModel({
+    required this.id,
     required this.medicine_name,
     required this.dosage,
     required this.medicineType,
@@ -19,6 +21,7 @@ class MedicineInfoModel {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'medicine_name': medicine_name,
       'dosage': dosage,
       'medicineType': medicineType.toJson(),
@@ -30,6 +33,7 @@ class MedicineInfoModel {
   factory MedicineInfoModel.fromJson(Map<String, dynamic> json) {
     List<String> timeParts = json['startTime'].split(':');
     return MedicineInfoModel(
+        id: json['id'],
         medicine_name: json['medicine_name'],
         dosage: json['dosage'],
         medicineType: MedicineTypeDataModel.fromJson(json['medicineType']),

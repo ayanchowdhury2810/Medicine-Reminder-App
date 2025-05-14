@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:medicine_reminder_app/models/medicine_info_model.dart';
 import 'package:medicine_reminder_app/models/medicine_type_data_model.dart';
 
-class EditPageState {
+class EditPageState { 
   final String medicineName;
   final String dosage;
   final MedicineTypeDataModel medicineType;
