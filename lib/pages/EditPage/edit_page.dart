@@ -13,6 +13,7 @@ import 'package:medicine_reminder_app/pages/EditPage/bloc/edit_page_event.dart';
 import 'package:medicine_reminder_app/pages/EditPage/bloc/edit_page_state.dart';
 import 'package:medicine_reminder_app/pages/NewEntryPage/widgets/add_text_data.dart';
 import 'package:medicine_reminder_app/pages/NewEntryPage/widgets/medicine_type_card.dart';
+import 'package:medicine_reminder_app/routes/routes_name.dart';
 import 'package:sizer/sizer.dart';
 
 class EditPage extends StatefulWidget {
@@ -53,7 +54,12 @@ class _EditPageState extends State<EditPage> {
             element.desc == widget.medicineInfoModel.medicineType.desc);
     selectedInterval = widget.medicineInfoModel.interval;
     selectedStartTime = widget.medicineInfoModel.startTime;
-    editPageBloc = EditPageBloc();
+    editPageBloc = EditPageBloc(
+        initialMedicineName: widget.medicineInfoModel.medicine_name,
+        initialDosage: widget.medicineInfoModel.dosage,
+        initialMedicineType: widget.medicineInfoModel.medicineType,
+        initialInterval: widget.medicineInfoModel.interval,
+        initialStartingTime: widget.medicineInfoModel.startTime);
   }
 
   void _unfocusTextFields() {
@@ -90,7 +96,8 @@ class _EditPageState extends State<EditPage> {
               Future<dynamic>.delayed(Duration(seconds: 5));
               ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(content: Text("Data Edited Successfully")));
-                  Navigator.pop(context);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, RoutesName.homeScreen, (route) => false);
             }
           },
           listenWhen: (previous, current) =>

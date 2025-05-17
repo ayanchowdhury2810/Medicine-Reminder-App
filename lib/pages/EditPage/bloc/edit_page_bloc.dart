@@ -10,17 +10,18 @@ import 'package:medicine_reminder_app/pages/EditPage/bloc/edit_page_event.dart';
 import 'package:medicine_reminder_app/pages/EditPage/bloc/edit_page_state.dart';
 
 class EditPageBloc extends Bloc<EditPageEvent, EditPageState> {
-  EditPageBloc()
+  EditPageBloc(
+      {required String initialMedicineName,
+      required String initialDosage,
+      required MedicineTypeDataModel initialMedicineType,
+      required String initialInterval,
+      required TimeOfDay initialStartingTime})
       : super(EditPageState(
-            medicineName: '',
-            dosage: '',
-            medicineType: MedicineTypeDataModel(
-              imagePath: '',
-              desc: '',
-              isSelected: false,
-            ),
-            interval: '',
-            startingTime: TimeOfDay.now())) {
+            medicineName: initialMedicineName,
+            dosage: initialDosage,
+            medicineType: initialMedicineType,
+            interval: initialInterval,
+            startingTime: initialStartingTime)) {
     on<MedicineNameChanged>(_onMedicineNameChanged);
     on<DosageChanged>(_onDosageChanged);
     on<MedicineTypeSelection>(_onMedicineTypeSelection);
@@ -66,7 +67,10 @@ class EditPageBloc extends Bloc<EditPageEvent, EditPageState> {
           id: event.id,
           medicine_name: state.medicineName,
           dosage: state.dosage,
-          medicineType: state.medicineType,
+          medicineType: MedicineTypeDataModel(
+              imagePath: state.medicineType.imagePath,
+              desc: state.medicineType.desc,
+              isSelected: state.medicineType.isSelected),
           interval: state.interval,
           startTime: state.startingTime);
     }
@@ -80,6 +84,9 @@ class EditPageBloc extends Bloc<EditPageEvent, EditPageState> {
 
   void _editData(MedicineInfoModel medicineInfo) async {
     print("resss22222-> ${medicineInfo.medicine_name}");
+    print(
+        "ress00000-> ${medicineInfo.medicineType.imagePath}, ${medicineInfo.medicineType.desc}, ${medicineInfo.medicineType.isSelected}");
+
     await dataManager.editReminderList(medicineInfo);
   }
 }
